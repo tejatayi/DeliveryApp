@@ -1,11 +1,69 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Signup from "./pages/SignUpPage.js";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        {/* Home Screen */}
+        <Stack.Screen
+          name="Login"
+          component={LoginPage}
+          options={{ headerShown: false }} // this to hide the header
+        />
+
+        {/* Sign Up Screen */}
+        <Stack.Screen
+          name="SignUp"
+          component={Signup}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function LoginPage({ navigation }) {
+  return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
+
+      <Image source={require("./assets/logo_sample.png")} style={styles.logo} />
+
+      <TextInput
+        style={styles.login_page_user_password} // username/ email/phone number
+        placeholder="Email "
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <TextInput
+        style={styles.login_page_user_password}
+        placeholder="Password" //password
+        secureTextEntry={true}
+      />
+      <View style={signUpStyles.signUpContainer}>
+        <Text style={signUpStyles.newCustomerText}>New Customer?</Text>
+        <TouchableOpacity
+          style={signUpStyles.signUpButton}
+          onPress={() => navigation.navigate("SignUp")} // the parameter is the name of the screen
+        >
+          <Text style={signUpStyles.buttonText}> Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -13,8 +71,54 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    //backgroundColor: "#FFFFFF",
+    backgroundColor: "#060202",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  login_page_user_password: {
+    width: "80%",
+    height: 45,
+    fontWeight: "600",
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: "#808080",
+    marginBottom: 10,
+    paddingLeft: 10,
+    placeholderTextColor: "#FFFFFF",
+  },
+
+  logo: {
+    // backgroundColor: "#FFFFFFs",
+    width: 100, // Width of the logo image
+    height: 100,
+    marginBottom: 30,
+    backgroundColor: "#060202",
+    borderRadius: 14,
+  },
+  newCustomerText: {
+    fontSize: 15,
+    fontWeight: 1000,
+  },
+});
+
+const signUpStyles = StyleSheet.create({
+  signUpContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 30,
+  },
+  signUpButton: {
+    backgroundColor: "#27292B",
+    marginLeft: "20",
+    marginRight: "20",
+    paddingLeft: "2",
+    paddingRight: "4",
+  },
+  newCustomerText: {
+    color: "#FFFFFF",
+  },
+  buttonText: {
+    color: "#FFFFFF",
   },
 });
