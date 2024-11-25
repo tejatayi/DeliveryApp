@@ -10,6 +10,7 @@ import {
 import "@react-native-firebase/app";
 import auth from "@react-native-firebase/auth";
 import GoogleButton from "react-google-button";
+import signUp from "./FirebaseAuth";
 
 export default function Signup({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -54,7 +55,7 @@ export default function Signup({ navigation }) {
       />
 
       <View style={styles.authentication_container}>
-        <TouchableOpacity onPress={() => alert("Button pressed")}>
+        <TouchableOpacity onPress={() => signUp(email, password)}>
           <Text style={styles.Signup_button}>SignUp</Text>
         </TouchableOpacity>
       </View>
