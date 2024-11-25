@@ -9,9 +9,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
+import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Signup from "./pages/SignUpPage.js";
+import MenuPage from "./pages/MenuPage.js";
+import { signIn } from "./pages/FirebaseAuth.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +22,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        {/* Home Screen */}
+        {/* Home Screen or Login screen */}
         <Stack.Screen
           name="Login"
           component={LoginPage}
@@ -32,12 +35,19 @@ export default function App() {
           component={Signup}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="MenuPage"
+          component={MenuPage}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 function LoginPage({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -49,12 +59,23 @@ function LoginPage({ navigation }) {
         placeholder="Email "
         keyboardType="email-address"
         autoCapitalize="none"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
       />
       <TextInput
         style={styles.login_page_user_password}
         placeholder="Password" //password
         secureTextEntry={true}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
       />
+      <TouchableOpacity
+        style={signUpStyles.signUpButton}
+        onPress={() => signIn(email, password, navigation)}
+      >
+        <Text style={signUpStyles.buttonText}> Sign In</Text>
+      </TouchableOpacity>
+
       <View style={signUpStyles.signUpContainer}>
         <Text style={signUpStyles.newCustomerText}>New Customer?</Text>
         <TouchableOpacity
@@ -106,10 +127,10 @@ const signUpStyles = StyleSheet.create({
   signUpContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 35,
   },
   signUpButton: {
-    backgroundColor: "#27292B",
+    backgroundColor: "#060202",
     marginLeft: "20",
     marginRight: "20",
     paddingLeft: "2",

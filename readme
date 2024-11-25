@@ -1,1 +1,7 @@
 FireBase integration (go through this documentation) : https://docs.expo.dev/guides/using-firebase/#using-firebase-js-sdk
+
+- need to use Firebase JS sdk to connect to fire base "npm install firebase"
+
+- In side the firebase console create an web application where you can get the firebase configuration .
+  use the configraion to connect to the fire base .
+- then you can use the initialize and other calls to connect/auth details from the fire base
