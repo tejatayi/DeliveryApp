@@ -1,0 +1,22 @@
+-----------------------database creation -----------------------------
+CREATE DATABASE restaurant_db
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+--------------------------------------------------
+---------------Table Creation ----------------------------------------
+CREATE TABLE items (
+    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    description TEXT,
+    category ENUM('Veg', 'NonVeg') NOT NULL,
+    sub_category ENUM('Appetizers', 'Salads', 'Entrees', 'Desserts', 'Beverages') NOT NULL,
+    image_url VARCHAR(255),
+    availability BOOLEAN DEFAULT TRUE,
+    nutrition_facts TEXT,
+    ingredients TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    customizable BOOLEAN DEFAULT FALSE
+);
+

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import "@react-native-firebase/app";
 import auth from "@react-native-firebase/auth";
@@ -21,6 +22,11 @@ export default function Signup({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("../assets/logo_sample.png")}
+        style={styles.logo}
+      />
+
       <TextInput
         style={styles.login_page_user}
         placeholder="First Name"
@@ -83,5 +89,13 @@ const styles = StyleSheet.create({
   },
   Signup_button: {
     color: "#FFFFFF",
+  },
+  logo: {
+    // backgroundColor: "#FFFFFFs",
+    width: 200, // Width of the logo image
+    height: 200,
+    marginBottom: 30,
+    backgroundColor: "#060202",
+    borderRadius: 20,
   },
 });
