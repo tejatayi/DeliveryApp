@@ -15,33 +15,36 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Signup from "./pages/SignUpPage.js";
 import MenuPage from "./pages/MenuPage.js";
 import { signIn } from "./pages/FirebaseAuth.js";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        {/* Home Screen or Login screen */}
-        <Stack.Screen
-          name="Login"
-          component={LoginPage}
-          options={{ headerShown: false }} // this to hide the header
-        />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          {/* Home Screen or Login screen */}
+          <Stack.Screen
+            name="Login"
+            component={LoginPage}
+            options={{ headerShown: false }} // this to hide the header
+          />
 
-        {/* Sign Up Screen */}
-        <Stack.Screen
-          name="SignUp"
-          component={Signup}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MenuPage"
-          component={MenuPage}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          {/* Sign Up Screen */}
+          <Stack.Screen
+            name="SignUp"
+            component={Signup}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MenuPage"
+            component={MenuPage}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 
