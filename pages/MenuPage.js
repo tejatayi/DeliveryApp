@@ -34,9 +34,27 @@ export default function MenuPage({ navigation, route }) {
     };
     fetchData();
   }, []);
-
+  const subCategories = [
+    "Entrees",
+    "Salads",
+    "Beverages",
+    "Appetizers",
+    "Drinks",
+    "Breads",
+  ];
   return (
     <View style={styles.container}>
+      <ScrollView
+        horizontal={true}
+        style={styles.subCategoryBar}
+        showsHorizontalScrollIndicator={false}
+      >
+        {subCategories.map((category, index) => (
+          <TouchableOpacity key={index}>
+            <Text style={styles.categoryText}>{category}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
       {resposeStatus ? (
         <ScrollView style={styles.menuList}>
           {fetchMenuData.map((item, index) => (
@@ -56,10 +74,24 @@ export default function MenuPage({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#060202",
+  },
+  subCategoryBar: {
+    paddingHorizontal: 15,
+    paddingVertical: 20,
+    marginRight: 10,
+    backgroundColor: "#060202",
+    borderRadius: 8,
+    flexDirection: "row",
+  },
+  categoryText: {
+    color: "#fff",
+    fontSize: 13,
+    marginRight: 20,
   },
   menuItem: {
     marginTop: 20,
