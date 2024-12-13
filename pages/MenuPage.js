@@ -6,18 +6,23 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { menuData } from "./FirebaseAuth";
+import { menuDataByCategory } from "./FirebaseAuth";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function MenuPage({ navigation, route }) {
   const { email, idToken } = route.params;
   const [fetchMenuData, setFetchMenuData] = useState([]);
   const [resposeStatus, setResposeStatus] = useState(false);
+  const [fetchCategoryData, setFetchCategoryData] = useState("All");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const respose_object = await menuData(email, idToken);
+        const respose_object = await menuDataByCategory(
+          email,
+          idToken,
+          fetchCategoryData
+        );
         if (respose_object.status === 200) {
           setFetchMenuData(respose_object.data);
           setResposeStatus(true);
@@ -33,14 +38,15 @@ export default function MenuPage({ navigation, route }) {
       }
     };
     fetchData();
-  }, []);
+  }, [fetchCategoryData]);
+
   const subCategories = [
+    "All",
     "Entrees",
     "Salads",
-    "Beverages",
+    "Desserts",
     "Appetizers",
-    "Drinks",
-    "Breads",
+    "Beverages",
   ];
   return (
     <View style={styles.container}>
@@ -50,13 +56,16 @@ export default function MenuPage({ navigation, route }) {
         showsHorizontalScrollIndicator={false}
       >
         {subCategories.map((category, index) => (
-          <TouchableOpacity key={index}>
+          <TouchableOpacity
+            key={index}
+            onPress={() => setFetchCategoryData(category)}
+          >
             <Text style={styles.categoryText}>{category}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
       {resposeStatus ? (
-        <ScrollView style={styles.menuList}>
+        <ScrollView contentContainerStyle={styles.menuList}>
           {fetchMenuData.map((item, index) => (
             <View key={index} style={styles.menuItem}>
               <Text style={styles.itemName}>{item.itemName}</Text>
@@ -76,8 +85,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
     backgroundColor: "#060202",
   },
   subCategoryBar: {
@@ -93,12 +101,16 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginRight: 20,
   },
+  menuList: {
+    flex: 1,
+  },
   menuItem: {
-    marginTop: 20,
-    marginBottom: 20,
-    padding: 15,
+    marginTop: 10,
+    marginBottom: 15,
+    paddingLeft: 10,
+    paddingRight: 90,
     borderWidth: 1,
-    backgroundColor: "#1c1c1c",
+    backgroundColor: "#060202",
     shadowColor: "#000", // Adds a subtle shadow effect
     shadowOffset: { width: 0, height: 1 }, // Shadow position
     shadowOpacity: 0.3, // Shadow intensity

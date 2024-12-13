@@ -5,3 +5,5 @@ FireBase integration (go through this documentation) : https://docs.expo.dev/gui
 - In side the firebase console create an web application where you can get the firebase configuration .
   use the configraion to connect to the fire base .
 - then you can use the initialize and other calls to connect/auth details from the fire base
+
+Spring security : https://www.youtube.com/watch?v=_GSHvvken2k (detailed explanation)

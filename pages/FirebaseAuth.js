@@ -71,10 +71,10 @@ export const signIn = (email, password, navigation) => {
 
 //below is the API_hub were we can constuct and make api calls
 
-export const menuData = async (email, idToken) => {
+export const menuDataByCategory = async (email, idToken, category) => {
   console.log("menuData function called");
   console.log(`This is the token in menudata function ${idToken}`);
-  const url = "http://192.168.0.188:8080/all/items";
+  const url = `http://192.168.0.188:8080/items/${category}`;
   try {
     const menuData_response = await axios.get(url, {
       headers: {
