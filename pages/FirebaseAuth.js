@@ -74,7 +74,7 @@ export const signIn = (email, password, navigation) => {
 export const menuDataByCategory = async (email, idToken, category) => {
   console.log("menuData function called");
   console.log(`This is the token in menudata function ${idToken}`);
-  const url = `http://192.168.0.188:8080/items/${category}`;
+  const url = `http://192.168.0.16:8080/items/${category}`;
   try {
     const menuData_response = await axios.get(url, {
       headers: {

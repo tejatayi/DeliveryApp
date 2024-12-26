@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Image,
   TextInput,
   TouchableOpacity,
 } from "react-native";
@@ -25,6 +26,7 @@ export default function MenuPage({ navigation, route }) {
         );
         if (respose_object.status === 200) {
           setFetchMenuData(respose_object.data);
+          console.log(fetchMenuData);
           setResposeStatus(true);
         } else {
           console.log(
@@ -68,9 +70,17 @@ export default function MenuPage({ navigation, route }) {
         <ScrollView contentContainerStyle={styles.menuList}>
           {fetchMenuData.map((item, index) => (
             <View key={index} style={styles.menuItem}>
-              <Text style={styles.itemName}>{item.itemName}</Text>
-              <Text style={styles.itemPrice}>Price: ${item.price}</Text>
-              <Text style={styles.itemDescription}>{item.description}</Text>
+              <Image
+                source={{ uri: `${item.imageUrl}` }}
+                style={styles.image}
+              />
+              <View style={styles.itemText}>
+                <Text style={styles.itemName}>{item.itemName}</Text>
+                <Text style={styles.itemPrice}>Price: ${item.price}</Text>
+              </View>
+              <TouchableOpacity style={styles.cartbutton}>
+                <Text style={styles.itemName}>Add to cart</Text>
+              </TouchableOpacity>
             </View>
           ))}
         </ScrollView>
@@ -95,6 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#060202",
     borderRadius: 8,
     flexDirection: "row",
+    paddingBottom: 9,
   },
   categoryText: {
     color: "#fff",
@@ -102,29 +113,46 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   menuList: {
-    flex: 1,
+    flexGrow: 1,
+  },
+  image: {
+    marginLeft: 3,
+    width: 100,
+    height: 100,
+    borderRadius: 0,
+    marginBottom: 0,
+    marginRight: 6,
   },
   menuItem: {
-    marginTop: 10,
-    marginBottom: 15,
-    paddingLeft: 10,
-    paddingRight: 90,
-    borderWidth: 1,
+    padding: 6,
+    width: "100%",
+    flexDirection: "row",
     backgroundColor: "#060202",
-    shadowColor: "#000", // Adds a subtle shadow effect
-    shadowOffset: { width: 0, height: 1 }, // Shadow position
-    shadowOpacity: 0.3, // Shadow intensity
-    shadowRadius: 2, // Shadow blur radius
+    shadowColor: "#000",
+    borderBlockColor: "#868686",
+    borderWidth: 0.3,
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
     minHeight: 60,
+    marginRight: "150",
+  },
+  itemText: {
+    marginTop: 10,
   },
   itemName: {
     fontWeight: "bold",
-    color: "#777",
+    color: "#FFFFFF",
   },
   itemPrice: {
+    marginTop: 2,
     color: "#868686",
   },
   itemDescription: {
     color: "#868686",
+  },
+  cartbutton: {
+    position: "absolute",
+    bottom: 1,
+    right: 1,
   },
 });
