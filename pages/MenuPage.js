@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { menuDataByCategory } from "./FirebaseAuth";
 import { ScrollView } from "react-native-gesture-handler";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function MenuPage({ navigation, route }) {
   const { email, idToken } = route.params;
@@ -76,10 +77,11 @@ export default function MenuPage({ navigation, route }) {
               />
               <View style={styles.itemText}>
                 <Text style={styles.itemName}>{item.itemName}</Text>
+                <Text style={styles.itemDescription}>{item.description}</Text>
                 <Text style={styles.itemPrice}>Price: ${item.price}</Text>
               </View>
               <TouchableOpacity style={styles.cartbutton}>
-                <Text style={styles.itemName}>Add to cart</Text>
+                <Text style={styles.cartButtonText}>Add to cart</Text>
               </TouchableOpacity>
             </View>
           ))}
@@ -87,6 +89,11 @@ export default function MenuPage({ navigation, route }) {
       ) : (
         <Text>No menu data available</Text>
       )}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.cartIconContainer}>
+          <MaterialIcons name="shopping-cart" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -124,17 +131,13 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   menuItem: {
-    padding: 6,
-    width: "100%",
+    position: "relative",
+    padding: 4,
     flexDirection: "row",
     backgroundColor: "#060202",
     shadowColor: "#000",
     borderBlockColor: "#868686",
     borderWidth: 0.3,
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    minHeight: 60,
-    marginRight: "150",
   },
   itemText: {
     marginTop: 10,
@@ -145,6 +148,8 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     marginTop: 2,
+    position: "absolute",
+    bottom: 1,
     color: "#868686",
   },
   itemDescription: {
@@ -152,7 +157,19 @@ const styles = StyleSheet.create({
   },
   cartbutton: {
     position: "absolute",
+    left: 320,
     bottom: 1,
-    right: 1,
+    padding: 3,
+    borderWidth: 0.4,
+  },
+  cartButtonText: {
+    color: "#bbbbbb",
+  },
+  bottomBar: {
+    padding: 2,
+  },
+  cartIconContainer: {
+    padding: 2,
+    left: 360,
   },
 });
