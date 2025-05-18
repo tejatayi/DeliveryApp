@@ -12,14 +12,14 @@ import axios from "axios"; // this lib is used to make api calls.
 //const [user_authorized, setuser_authorized] = useState(false);
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA_gzi7-qypJ0uk_NI-kOiMmQowgG-JCno",
-  authDomain: "deliveryapplication-5df3a.firebaseapp.com",
-  databaseURL: "https://deliveryapplication-5df3a-default-rtdb.firebaseio.com",
-  projectId: "deliveryapplication-5df3a",
-  storageBucket: "deliveryapplication-5df3a.firebasestorage.app",
-  messagingSenderId: "988916383847",
-  appId: "1:988916383847:web:8749808d002b6f08ae14c2",
-  measurementId: "G-7XDVFH6JBG",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase if not already initialized
@@ -74,7 +74,7 @@ export const signIn = (email, password, navigation) => {
 export const menuDataByCategory = async (email, idToken, category) => {
   console.log("menuData function called");
   console.log(`This is the token in menudata function ${idToken}`);
-  const url = `http://192.168.0.102:8080/items/${category}`;
+  const url = `http://192.168.0.16:8080/items/${category}`;
   try {
     const menuData_response = await axios.get(url, {
       headers: {
