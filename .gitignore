@@ -35,8 +35,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# .evn 
-
-.env
-.env.local
-.env.*.local
+# firebase file 
+/config/firebaseConfig.js
